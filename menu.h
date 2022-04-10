@@ -2,10 +2,13 @@
 #define MENU_H
 
 #include <QMainWindow>
+#include <memory>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class menu; }
 QT_END_NAMESPACE
+
+class Server;
 
 class menu : public QMainWindow
 {
@@ -17,5 +20,7 @@ public:
 
 private:
     Ui::menu *ui;
+    std::unique_ptr<Server>myServer;
+
 };
 #endif // MENU_H
