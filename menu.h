@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <memory>
+#include <QCompleter>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class menu; }
@@ -26,6 +27,7 @@ private:
     Ui::menu *ui;
     std::unique_ptr<Server>myServer;
     std::unique_ptr<Table>myTable1;
+    std::unique_ptr<QCompleter> myCompleter;
 
     [[nodiscard]] bool ConfigureTable1() const noexcept;
                   void ShowData()              noexcept;

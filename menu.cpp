@@ -5,7 +5,7 @@
 #include <memory>
 #include <QMessageBox>
 #include <QInputDialog>
-#include <QListWidgetItem>
+#include <QCompleter>
 
 menu::menu(QWidget *parent)
     : QMainWindow(parent)
@@ -40,13 +40,28 @@ void menu::ShowData() noexcept
     ui->listWidget->clear();
     const short RowTable1 { 0 };
     auto data = myTable1->GetAllElements();
+    QStringList items {};
 
     for(int i = 0; i <= data.size() - 1; i++)
     {
         auto elem = data.at(i).at(RowTable1);
+        items << elem;
         ui->listWidget->addItem(elem);
 
     }
+
+    auto CompleterLine = [this](QStringList& items){
+        //QCompleter *completer = new QCompleter(items);
+        //ui->lineEdit->setCompleter(completer);
+        //delete completer;
+        //return;
+        myCompleter = std::make_unique<QCompleter>(items);
+        ui->lineEdit->setCompleter(myCompleter.get());
+
+    };
+
+    CompleterLine(items);
+    return;
 
 }
 
