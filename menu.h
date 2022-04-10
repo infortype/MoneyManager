@@ -28,6 +28,7 @@ private:
     std::unique_ptr<Table>myTable1;
 
     [[nodiscard]] bool ConfigureTable1() const noexcept;
+                  void ShowData()              noexcept;
 
 };
 #endif // MENU_H

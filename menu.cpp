@@ -5,6 +5,7 @@
 #include <memory>
 #include <QMessageBox>
 #include <QInputDialog>
+#include <QListWidgetItem>
 
 menu::menu(QWidget *parent)
     : QMainWindow(parent)
@@ -17,6 +18,8 @@ menu::menu(QWidget *parent)
 
     myTable1 = std::make_unique<Table>("Sheets");
      if(!ConfigureTable1()) { QMessageBox::critical(this, "Error", "Table error"); return; };
+
+    ShowData();
 }
 
 menu::~menu()
@@ -29,6 +32,21 @@ bool menu::ConfigureTable1() const noexcept
 
     myTable1->AddRow("NameSheet", Server::Text, "Primary Key unique");
     return myTable1->Create();
+
+}
+
+void menu::ShowData() noexcept
+{
+    ui->listWidget->clear();
+    const short RowTable1 { 0 };
+    auto data = myTable1->GetAllElements();
+
+    for(int i = 0; i <= data.size() - 1; i++)
+    {
+        auto elem = data.at(i).at(RowTable1);
+        ui->listWidget->addItem(elem);
+
+    }
 
 }
 
@@ -63,6 +81,7 @@ void menu::on_actionNueva_Hoja_triggered()
      {
          myTable1->Add({nameSheet});
          QMessageBox::information(this, "Good", "Sheet was created.");
+         ShowData();
      }
 
     return;

@@ -60,7 +60,14 @@
      </layout>
     </item>
     <item row="1" column="0">
-     <widget class="QListView" name="listView"/>
+     <widget class="QListWidget" name="listWidget">
+      <property name="font">
+       <font>
+        <family>Cascadia Code</family>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
