@@ -4,6 +4,7 @@
 
 #include <memory>
 #include <QMessageBox>
+#include <QInputDialog>
 
 menu::menu(QWidget *parent)
     : QMainWindow(parent)
@@ -15,7 +16,7 @@ menu::menu(QWidget *parent)
     myServer->ConnectToBase();
 
     myTable1 = std::make_unique<Table>("Sheets");
-     if(!ConfigureTable1()) QMessageBox::critical(this, "Error", "Table error");
+     if(!ConfigureTable1()) { QMessageBox::critical(this, "Error", "Table error"); return; };
 }
 
 menu::~menu()
@@ -30,3 +31,14 @@ bool menu::ConfigureTable1() const noexcept
     return myTable1->Create();
 
 }
+
+void menu::on_actionNueva_Hoja_triggered()
+{
+
+    const QString title     { "Insertar" };
+    const QString info      { "Escriba el nombre de la hoja." };
+    const QString example   { "Sheet1" };
+    const QString nameSheet { QInputDialog::getText(this, title, info, QLineEdit::Normal, example) };
+
+}
+

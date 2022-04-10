@@ -19,6 +19,9 @@ public:
     menu(QWidget *parent = nullptr);
     ~menu();
 
+private slots:
+    void on_actionNueva_Hoja_triggered();
+
 private:
     Ui::menu *ui;
     std::unique_ptr<Server>myServer;
