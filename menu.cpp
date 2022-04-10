@@ -39,6 +39,32 @@ void menu::on_actionNueva_Hoja_triggered()
     const QString info      { "Escriba el nombre de la hoja." };
     const QString example   { "Sheet1" };
     const QString nameSheet { QInputDialog::getText(this, title, info, QLineEdit::Normal, example) };
+     if(nameSheet.isEmpty()) { QMessageBox::warning(this, "Error", "Sheet must have a name."); return; }
 
+    auto existsNameSheet = [this](const QString& nameSheet){
+
+         bool exists { false };
+         const int rowTable1 { 0 };
+         auto data = myTable1->GetAllElements();
+
+         for(int i = 0; i <= data.size() - 1; i++){
+             if (data.at(i).at(rowTable1) == nameSheet) { exists = true; }
+         }
+
+         return exists;
+
+    };
+
+     if(existsNameSheet(nameSheet))
+     {
+         QMessageBox::warning(this, "Error", "Sheet must have a different name.");
+         return;
+     }else
+     {
+         myTable1->Add({nameSheet});
+         QMessageBox::information(this, "Good", "Sheet was created.");
+     }
+
+    return;
 }
 
