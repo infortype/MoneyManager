@@ -9,6 +9,7 @@ namespace Ui { class menu; }
 QT_END_NAMESPACE
 
 class Server;
+class Table;
 
 class menu : public QMainWindow
 {
@@ -21,6 +22,9 @@ public:
 private:
     Ui::menu *ui;
     std::unique_ptr<Server>myServer;
+    std::unique_ptr<Table>myTable1;
+
+    [[nodiscard]] bool ConfigureTable1() const noexcept;
 
 };
 #endif // MENU_H
