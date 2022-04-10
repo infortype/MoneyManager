@@ -51,12 +51,9 @@ void menu::ShowData() noexcept
     }
 
     auto CompleterLine = [this](QStringList& items){
-        //QCompleter *completer = new QCompleter(items);
-        //ui->lineEdit->setCompleter(completer);
-        //delete completer;
-        //return;
         myCompleter = std::make_unique<QCompleter>(items);
         ui->lineEdit->setCompleter(myCompleter.get());
+        return;
 
     };
 
@@ -101,4 +98,27 @@ void menu::on_actionNueva_Hoja_triggered()
 
     return;
 }
+
+
+void menu::on_pushButton_clicked()
+{
+    const QString search { ui->lineEdit->text() };
+    const int size = ui->listWidget->count() - 1;
+
+     if(search.isEmpty()) { QMessageBox::warning(this, "Error", "Search is empty"); return; };
+
+     for(int i = 0; i <= size; i++){
+         auto currentElem = ui->listWidget->item(i)->text();
+         qDebug() << currentElem << " " << search;
+          if(currentElem == search){
+              ui->listWidget->clear();
+              ui->listWidget->addItem(currentElem);
+          }//else { QMessageBox::critical(this, "Error", "Search has not found."); return; };
+
+     }
+
+}
+
+
+
 

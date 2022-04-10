@@ -23,6 +23,8 @@ public:
 private slots:
     void on_actionNueva_Hoja_triggered();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::menu *ui;
     std::unique_ptr<Server>myServer;
