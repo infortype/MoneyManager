@@ -5,6 +5,7 @@
 #include <memory>
 #include <QCompleter>
 #include <QStringList>
+#include <QListWidgetItem>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class menu; }
@@ -28,6 +29,8 @@ private slots:
 
     void on_searchButton_clicked();
 
+    void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
+
 private:
     Ui::menu *ui;
     std::unique_ptr<Server>myServer;
@@ -37,6 +40,8 @@ private:
     [[nodiscard]] bool ConfigureTable1() const noexcept;
                   void ShowData()              noexcept;
     [[nodiscard]] const QStringList GetData() const noexcept;
+    [[nodiscard]] int CreateMessage(const QString& title);
+                  void EraseSheet(const QString& sheetName) const noexcept;
 
 };
 #endif // MENU_H

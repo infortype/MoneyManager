@@ -88,7 +88,7 @@
    </widget>
    <widget class="QMenu" name="menuBusqueda">
     <property name="title">
-     <string>Busqueda</string>
+     <string>Búsqueda</string>
     </property>
     <addaction name="actionTodos"/>
    </widget>
@@ -96,16 +96,26 @@
    <addaction name="menuBusqueda"/>
   </widget>
   <action name="actionNueva_Hoja">
+   <property name="icon">
+    <iconset resource="source.qrc">
+     <normaloff>:/assets/add.png</normaloff>:/assets/add.png</iconset>
+   </property>
    <property name="text">
     <string>Nueva Hoja</string>
    </property>
   </action>
   <action name="actionTodos">
+   <property name="icon">
+    <iconset resource="source.qrc">
+     <normaloff>:/assets/papers.png</normaloff>:/assets/papers.png</iconset>
+   </property>
    <property name="text">
     <string>Todos</string>
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="source.qrc"/>
+ </resources>
  <connections/>
 </ui>
