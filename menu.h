@@ -24,7 +24,9 @@ public:
 private slots:
     void on_actionNueva_Hoja_triggered();
 
-    void on_pushButton_clicked();
+    void on_actionTodos_triggered();
+
+    void on_searchButton_clicked();
 
 private:
     Ui::menu *ui;

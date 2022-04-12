@@ -36,7 +36,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="searchButton">
           <property name="text">
            <string>Buscar</string>
           </property>
@@ -86,11 +86,23 @@
     </property>
     <addaction name="actionNueva_Hoja"/>
    </widget>
+   <widget class="QMenu" name="menuBusqueda">
+    <property name="title">
+     <string>Busqueda</string>
+    </property>
+    <addaction name="actionTodos"/>
+   </widget>
    <addaction name="menuA_adir"/>
+   <addaction name="menuBusqueda"/>
   </widget>
   <action name="actionNueva_Hoja">
    <property name="text">
     <string>Nueva Hoja</string>
+   </property>
+  </action>
+  <action name="actionTodos">
+   <property name="text">
+    <string>Todos</string>
    </property>
   </action>
  </widget>

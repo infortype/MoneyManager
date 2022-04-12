@@ -109,8 +109,14 @@ void menu::on_actionNueva_Hoja_triggered()
     return;
 }
 
+void menu::on_actionTodos_triggered()
+{
+    ShowData();
+    return;
+}
 
-void menu::on_pushButton_clicked()
+
+void menu::on_searchButton_clicked()
 {
 
     bool find { false };
@@ -128,10 +134,9 @@ void menu::on_pushButton_clicked()
     if(find) { ui->listWidget->clear(); ui->listWidget->addItem(search); } //Put the data in the list
     else { ShowData(); QMessageBox::critical(this, "Error", "Search has not found."); }
 
+   ui->lineEdit->setText("");
+
    return;
 
 }
-
-
-
 
