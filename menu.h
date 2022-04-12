@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <memory>
 #include <QCompleter>
+#include <QStringList>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class menu; }
@@ -33,6 +34,7 @@ private:
 
     [[nodiscard]] bool ConfigureTable1() const noexcept;
                   void ShowData()              noexcept;
+    [[nodiscard]] const QStringList GetData() const noexcept;
 
 };
 #endif // MENU_H

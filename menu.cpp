@@ -38,6 +38,24 @@ bool menu::ConfigureTable1() const noexcept
 void menu::ShowData() noexcept
 {
     ui->listWidget->clear();
+
+    const QStringList items = GetData();
+
+    auto CompleterLine = [this](const QStringList items){
+        myCompleter = std::make_unique<QCompleter>(items);
+        ui->lineEdit->setCompleter(myCompleter.get());
+        return;
+
+    };
+
+    CompleterLine(items);
+
+    return;
+
+}
+
+const QStringList menu::GetData() const noexcept
+{
     const short RowTable1 { 0 };
     auto data = myTable1->GetAllElements();
     QStringList items {};
@@ -50,15 +68,7 @@ void menu::ShowData() noexcept
 
     }
 
-    auto CompleterLine = [this](QStringList& items){
-        myCompleter = std::make_unique<QCompleter>(items);
-        ui->lineEdit->setCompleter(myCompleter.get());
-        return;
-
-    };
-
-    CompleterLine(items);
-    return;
+   return items;
 
 }
 
@@ -102,20 +112,23 @@ void menu::on_actionNueva_Hoja_triggered()
 
 void menu::on_pushButton_clicked()
 {
+
+    bool find { false };
     const QString search { ui->lineEdit->text() };
-    const int size = ui->listWidget->count() - 1;
+    const QStringList data { GetData() };
+    const int size = data.size() - 1;
 
-     if(search.isEmpty()) { QMessageBox::warning(this, "Error", "Search is empty"); return; };
+    //We loop the data.
+    for (int i = 0; i <= size; i++){
+        const QString currentItem { data.at(i) };
+         if(currentItem == search) { find = true; break; } //Here we find the data
+         else find = false;
+    }
 
-     for(int i = 0; i <= size; i++){
-         auto currentElem = ui->listWidget->item(i)->text();
-         qDebug() << currentElem << " " << search;
-          if(currentElem == search){
-              ui->listWidget->clear();
-              ui->listWidget->addItem(currentElem);
-          }//else { QMessageBox::critical(this, "Error", "Search has not found."); return; };
+    if(find) { ui->listWidget->clear(); ui->listWidget->addItem(search); } //Put the data in the list
+    else { ShowData(); QMessageBox::critical(this, "Error", "Search has not found."); }
 
-     }
+   return;
 
 }
 
