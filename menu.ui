@@ -92,8 +92,16 @@
     </property>
     <addaction name="actionTodos"/>
    </widget>
+   <widget class="QMenu" name="menuAjustes">
+    <property name="title">
+     <string>Ajustes</string>
+    </property>
+    <addaction name="actionAgregar_cuenta"/>
+    <addaction name="actionEliminar_cuenta"/>
+   </widget>
    <addaction name="menuA_adir"/>
    <addaction name="menuBusqueda"/>
+   <addaction name="menuAjustes"/>
   </widget>
   <action name="actionNueva_Hoja">
    <property name="icon">
@@ -111,6 +119,16 @@
    </property>
    <property name="text">
     <string>Todos</string>
+   </property>
+  </action>
+  <action name="actionAgregar_cuenta">
+   <property name="text">
+    <string>Agregar cuenta</string>
+   </property>
+  </action>
+  <action name="actionEliminar_cuenta">
+   <property name="text">
+    <string>Eliminar cuenta</string>
    </property>
   </action>
  </widget>

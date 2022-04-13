@@ -31,18 +31,25 @@ private slots:
 
     void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
 
+    void on_actionAgregar_cuenta_triggered();
+
+    void on_actionEliminar_cuenta_triggered();
+
 private:
     Ui::menu *ui;
     std::unique_ptr<Server>myServer;
     std::unique_ptr<Table>myTable1;
+    std::unique_ptr<Table>myTable2;
     std::unique_ptr<QCompleter> myCompleter;
     std::unique_ptr<QListWidgetItem> myItem;
 
     [[nodiscard]] bool ConfigureTable1() const noexcept;
+    [[nodiscard]] bool ConfigureTable2() const noexcept;
                   void ShowData() noexcept;
     [[nodiscard]] const QStringList GetData() const noexcept;
     [[nodiscard]] int CreateMessage(const QString& title);
                   void EraseSheet(const QString& sheetName) const noexcept;
+                  void EraseAccount(const QString& account) const noexcept;
     QListWidgetItem *CreateSheetItem(const QString& sheetName) const noexcept;
 
 };

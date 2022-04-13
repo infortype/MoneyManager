@@ -20,6 +20,9 @@ menu::menu(QWidget *parent)
     myTable1 = std::make_unique<Table>("Sheets");
      if(!ConfigureTable1()) { QMessageBox::critical(this, "Error", "Table error"); return; };
 
+    myTable2 = std::make_unique<Table>("Accounts");
+     if(!ConfigureTable2()) { QMessageBox::critical(this, "Error", "Table error"); return; };
+
     ShowData();
 }
 
@@ -33,6 +36,14 @@ bool menu::ConfigureTable1() const noexcept
 
     myTable1->AddRow("NameSheet", Server::Text, "Primary Key unique");
     return myTable1->Create();
+
+}
+
+bool menu::ConfigureTable2() const noexcept
+{
+
+    myTable2->AddRow("Account", Server::Text, "Primary Key unique");
+    return myTable2->Create();
 
 }
 
@@ -76,10 +87,13 @@ const QStringList menu::GetData() const noexcept
 void menu::on_actionNueva_Hoja_triggered()
 {
 
+    bool create { false };
+    bool ok { false };
     const QString title     { "Insert" };
     const QString info      { "Write the name of the sheet." };
     const QString example   { "Sheet1" };
-    const QString nameSheet { QInputDialog::getText(this, title, info, QLineEdit::Normal, example) };
+    const QString nameSheet { QInputDialog::getText(this, title, info, QLineEdit::Normal, example, &ok) };
+     if(!ok) return;
      if(nameSheet.isEmpty()) { QMessageBox::warning(this, "Error", "Sheet must have a name."); return; }
 
     auto existsNameSheet = [this](const QString& nameSheet){
@@ -101,7 +115,13 @@ void menu::on_actionNueva_Hoja_triggered()
          return;
      }else
      {
-         myTable1->Add({nameSheet});
+         create = myTable1->Add({nameSheet});
+
+     }
+
+     if(!create){
+         QMessageBox::critical(this, "Error", "Likely the name is wrong, change it.");
+     }else{
          QMessageBox::information(this, "Good", "Sheet was created.");
          ShowData();
      }
@@ -203,6 +223,17 @@ void menu::EraseSheet(const QString &sheetName) const noexcept
 
 }
 
+void menu::EraseAccount(const QString &account) const noexcept
+{
+    const QString msg = QString("Account '%1' has been erased").arg(account);
+
+     if(!myTable2->Delete(0,account)) QMessageBox::critical(NULL, "Error", "Account has not erased");
+     else QMessageBox::information(NULL, "Account erased", msg);
+
+    return;
+
+}
+
 QListWidgetItem* menu::CreateSheetItem(const QString &sheetName) const noexcept
 {
 
@@ -210,6 +241,52 @@ QListWidgetItem* menu::CreateSheetItem(const QString &sheetName) const noexcept
     QListWidgetItem *item = new QListWidgetItem(*myIcon, sheetName); //Why here I can´t delete this pointer?
 
     return item;
+
+}
+
+
+void menu::on_actionAgregar_cuenta_triggered()
+{
+
+    const QString title     { "Insert" };
+    const QString info      { "Write the name of the account." };
+    const QString example   { "Card1" };
+    const QString AccountName { QInputDialog::getText(this, title, info, QLineEdit::Normal, example) };
+     if(AccountName.isEmpty()) { QMessageBox::warning(this, "Error", "Account name can not be empty."); return; }
+    bool insert = myTable2->Add({ AccountName });
+
+     if(!insert){
+         QMessageBox::critical(this, "Error", "Likely the name is wrong, change it.");
+     }else QMessageBox::information(this, "Well", "Account added.");
+
+    return;
+
+}
+
+
+void menu::on_actionEliminar_cuenta_triggered()
+{
+    bool ok { false };
+    const auto data { myTable2->GetAllElements() };
+    QStringList items;
+
+    foreach(QStringList p, data){
+        const QString item = p.at(0);
+        items << item;
+    }
+
+    const QString Account = QInputDialog::getItem(this, "Choose", "Choose the account to erase.", items, 0,
+                                                  false, &ok);
+     if(!ok) return;
+
+    const QString title { "Are you sure?" };
+    const QString info { "If you erase the account, you will lose all the data." };
+    int msg = QMessageBox::question(this,title,info,QMessageBox::No | QMessageBox::Yes, QMessageBox::No );
+     if(msg == QMessageBox::Yes){
+        EraseAccount(Account);
+        ShowData();
+     }
+    return;
 
 }
 
