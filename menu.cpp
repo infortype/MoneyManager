@@ -57,15 +57,15 @@ void menu::ShowData() noexcept
 
 const QStringList menu::GetData() const noexcept
 {
-    const short RowTable1 { 0 };
+    std::unique_ptr<QIcon> myIcon = std::make_unique<QIcon>(":/assets/sheet.png");
     auto data = myTable1->GetAllElements();
     QStringList items {};
 
-    for(int i = 0; i <= data.size() - 1; i++)
+    foreach (QStringList p, data)
     {
-        auto elem = data.at(i).at(RowTable1);
-        items << elem;
-        ui->listWidget->addItem(elem);
+        auto current = p.at(0);
+        items << current;
+        ui->listWidget->addItem(CreateSheetItem(current));
 
     }
 
@@ -85,11 +85,10 @@ void menu::on_actionNueva_Hoja_triggered()
     auto existsNameSheet = [this](const QString& nameSheet){
 
          bool exists { false };
-         const int rowTable1 { 0 };
          auto data = myTable1->GetAllElements();
 
-         for(int i = 0; i <= data.size() - 1; i++){
-             if (data.at(i).at(rowTable1) == nameSheet) { exists = true; }
+         foreach(QStringList p, data){
+             if(p.at(0) == nameSheet) { exists = true; }
          }
 
          return exists;
@@ -134,8 +133,10 @@ void menu::on_searchButton_clicked()
          else find = false;
     }
 
-    if(find) { ui->listWidget->clear(); ui->listWidget->addItem(search); } //Put the data in the list
-    else { ShowData(); QMessageBox::critical(this, "Error", "Search has not found."); }
+    if(find) {
+        //Put the data in the list
+        ui->listWidget->clear(); ui->listWidget->addItem(CreateSheetItem(search));
+    }else { ShowData(); QMessageBox::critical(this, "Error", "Search has not found."); }
 
    ui->lineEdit->setText("");
 
@@ -198,8 +199,17 @@ void menu::EraseSheet(const QString &sheetName) const noexcept
      if(!myTable1->Delete(0,sheetName)) QMessageBox::critical(NULL, "Error", "Sheet has not erased");
      else QMessageBox::information(NULL, "Sheet erased", msg);
 
-
     return;
+
+}
+
+QListWidgetItem* menu::CreateSheetItem(const QString &sheetName) const noexcept
+{
+
+    std::unique_ptr<QIcon> myIcon = std::make_unique<QIcon>(":/assets/sheet.png");
+    QListWidgetItem *item = new QListWidgetItem(*myIcon, sheetName); //Why here I can´t delete this pointer?
+
+    return item;
 
 }
 

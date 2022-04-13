@@ -36,12 +36,14 @@ private:
     std::unique_ptr<Server>myServer;
     std::unique_ptr<Table>myTable1;
     std::unique_ptr<QCompleter> myCompleter;
+    std::unique_ptr<QListWidgetItem> myItem;
 
     [[nodiscard]] bool ConfigureTable1() const noexcept;
-                  void ShowData()              noexcept;
+                  void ShowData() noexcept;
     [[nodiscard]] const QStringList GetData() const noexcept;
     [[nodiscard]] int CreateMessage(const QString& title);
                   void EraseSheet(const QString& sheetName) const noexcept;
+    QListWidgetItem *CreateSheetItem(const QString& sheetName) const noexcept;
 
 };
 #endif // MENU_H
