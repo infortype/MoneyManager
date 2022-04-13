@@ -13,10 +13,127 @@
   <property name="windowTitle">
    <string>menu</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar"/>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLineEdit" name="lineEdit"/>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="searchButton">
+          <property name="text">
+           <string>Buscar</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0">
+     <widget class="QListWidget" name="listWidget">
+      <property name="font">
+       <font>
+        <family>Cascadia Code</family>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuA_adir">
+    <property name="title">
+     <string>Añadir</string>
+    </property>
+    <addaction name="actionNueva_Hoja"/>
+   </widget>
+   <widget class="QMenu" name="menuBusqueda">
+    <property name="title">
+     <string>Búsqueda</string>
+    </property>
+    <addaction name="actionTodos"/>
+   </widget>
+   <widget class="QMenu" name="menuAjustes">
+    <property name="title">
+     <string>Ajustes</string>
+    </property>
+    <addaction name="actionAgregar_cuenta"/>
+    <addaction name="actionEliminar_cuenta"/>
+   </widget>
+   <addaction name="menuA_adir"/>
+   <addaction name="menuBusqueda"/>
+   <addaction name="menuAjustes"/>
+  </widget>
+  <action name="actionNueva_Hoja">
+   <property name="icon">
+    <iconset resource="source.qrc">
+     <normaloff>:/assets/add.png</normaloff>:/assets/add.png</iconset>
+   </property>
+   <property name="text">
+    <string>Nueva Hoja</string>
+   </property>
+  </action>
+  <action name="actionTodos">
+   <property name="icon">
+    <iconset resource="source.qrc">
+     <normaloff>:/assets/papers.png</normaloff>:/assets/papers.png</iconset>
+   </property>
+   <property name="text">
+    <string>Todos</string>
+   </property>
+  </action>
+  <action name="actionAgregar_cuenta">
+   <property name="text">
+    <string>Agregar cuenta</string>
+   </property>
+  </action>
+  <action name="actionEliminar_cuenta">
+   <property name="text">
+    <string>Eliminar cuenta</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="source.qrc"/>
+ </resources>
  <connections/>
 </ui>
