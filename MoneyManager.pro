@@ -4,6 +4,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++20
 QMAKE_CXXFLAGS += -std=gnu++20
+RC_ICONS += MainIcon.ico
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -12,14 +13,17 @@ QMAKE_CXXFLAGS += -std=gnu++20
 SOURCES += \
     main.cpp \
     menu.cpp \
-    server/server.cpp
+    server/server.cpp \
+    sheet.cpp
 
 HEADERS += \
     menu.h \
-    server/server.h
+    server/server.h \
+    sheet.h
 
 FORMS += \
-    menu.ui
+    menu.ui \
+    sheet.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

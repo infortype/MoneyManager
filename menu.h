@@ -7,6 +7,8 @@
 #include <QStringList>
 #include <QListWidgetItem>
 
+#include "sheet.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class menu; }
 QT_END_NAMESPACE
@@ -42,6 +44,7 @@ private:
     std::unique_ptr<Table>myTable2;
     std::unique_ptr<QCompleter> myCompleter;
     std::unique_ptr<QListWidgetItem> myItem;
+    std::unique_ptr<Sheet>mySheet;
 
     [[nodiscard]] bool ConfigureTable1() const noexcept;
     [[nodiscard]] bool ConfigureTable2() const noexcept;
