@@ -194,9 +194,9 @@ void menu::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
             break;
     }
     case 2:
-        //mySheet = std::make_unique<Sheet>(nullptr, sheet);
-        //mySheet->setWindowTitle(sheet);
-        //mySheet->show();
+        mySheet = std::make_unique<Sheet>(nullptr, sheet);
+        mySheet->setWindowTitle(sheet);
+        mySheet->show();
         break;
     }
 

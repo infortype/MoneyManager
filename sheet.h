@@ -16,15 +16,16 @@ class Sheet : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit Sheet(QWidget *parent = nullptr, QString sheet = nullptr);
+    explicit Sheet(QWidget *parent = nullptr, const QString& sheetName = nullptr);
     ~Sheet();
 
 private:
     Ui::Sheet *ui;
-    std::unique_ptr<Table>myTable1;
     QString sheetNameTitle {};
+    std::unique_ptr<Table> myTable1 {};
 
-    [[nodiscard]] bool configureTable1() const noexcept;
+    [[nodiscard]] bool ConfigureTable1() const noexcept;
+
 };
 
 #endif // SHEET_H
