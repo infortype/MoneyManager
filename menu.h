@@ -42,12 +42,14 @@ private:
     std::unique_ptr<Server>myServer;
     std::unique_ptr<Table>myTable1;
     std::unique_ptr<Table>myTable2;
+    std::unique_ptr<Table>myTable3;
     std::unique_ptr<QCompleter> myCompleter;
     std::unique_ptr<QListWidgetItem> myItem;
     std::unique_ptr<Sheet>mySheet;
 
     [[nodiscard]] bool ConfigureTable1() const noexcept;
     [[nodiscard]] bool ConfigureTable2() const noexcept;
+    [[nodiscard]] bool ConfigureTable3() const noexcept;
                   void ShowData() noexcept;
     [[nodiscard]] const QStringList GetData() const noexcept;
     [[nodiscard]] int CreateMessage(const QString& title);

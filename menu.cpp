@@ -47,6 +47,17 @@ bool menu::ConfigureTable2() const noexcept
 
 }
 
+bool menu::ConfigureTable3() const noexcept
+{
+
+    myTable3->AddRow("Event", Server::Text, "Primary Key unique");
+    myTable3->AddRow("Amount", Server::Float);
+    myTable3->AddRow("Account", Server::Text);
+    myTable3->AddRow("Paid", Server::Text);
+    return myTable3->Create();
+
+}
+
 void menu::ShowData() noexcept
 {
     ui->listWidget->clear();
@@ -87,7 +98,6 @@ const QStringList menu::GetData() const noexcept
 void menu::on_actionNueva_Hoja_triggered()
 {
 
-    bool create { false };
     bool ok { false };
     const QString title     { "Insert" };
     const QString info      { "Write the name of the sheet." };
@@ -109,22 +119,20 @@ void menu::on_actionNueva_Hoja_triggered()
 
     };
 
+    auto createSheet = [this](const QString& nameSheet){
+
+        myTable3 = std::make_unique<Table>(nameSheet); //Create the sheet
+         if(!ConfigureTable3()) { QMessageBox::critical(this, "Error", "Name not correct."); return; };
+        QMessageBox::information(this, "Good", "Sheet was created.");
+        myTable1->Add({nameSheet});//Add in the sheetNames the sheet
+        ShowData();
+    };
+
      if(existsNameSheet(nameSheet))
      {
          QMessageBox::warning(this, "Error", "Sheet must have a different name.");
          return;
-     }else
-     {
-         create = myTable1->Add({nameSheet});
-
-     }
-
-     if(!create){
-         QMessageBox::critical(this, "Error", "Likely the name is wrong, change it.");
-     }else{
-         QMessageBox::information(this, "Good", "Sheet was created.");
-         ShowData();
-     }
+     }else createSheet(nameSheet);
 
     return;
 }
@@ -186,9 +194,10 @@ void menu::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
             break;
     }
     case 2:
-        mySheet = std::make_unique<Sheet>(nullptr, sheet);
-        mySheet->setWindowTitle(sheet);
-        mySheet->show();
+        //mySheet = std::make_unique<Sheet>(nullptr, sheet);
+        //mySheet->setWindowTitle(sheet);
+        //mySheet->show();
+        break;
     }
 
 }
