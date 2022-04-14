@@ -23,8 +23,11 @@ private:
     Ui::Sheet *ui;
     QString sheetNameTitle {};
     std::unique_ptr<Table> myTable1 {};
+    std::unique_ptr<Table> myTable2 {};
 
     [[nodiscard]] bool ConfigureTable1() const noexcept;
+    [[nodiscard]] bool ConfigureTable2() const noexcept;
+    void ShowAccounts() const noexcept;
 
 };
 
