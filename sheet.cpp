@@ -62,4 +62,24 @@ void Sheet::ShowAccounts() const noexcept
 
 }
 
+void Sheet::on_bAdd_clicked()
+{
+    const QString event { ui->event->text() };
+    const QString account { ui->account->currentText() };
+    const double amount { ui->amount->value() };
+    bool paidBool = ui->paid;
+    QString paid;
+     if(paidBool) paid = "True";
+     else paid = "False";
+
+     if(event.isEmpty() || amount == 0.0 ){
+         QMessageBox::critical(this, "Error", "Event requires a text and the amount must be > 0.");
+         ui->event->setFocus();
+     }else{
+         myTable1->Add({event,QString::number(amount),account, paid});
+     }
+
+    return;
+
+}
 

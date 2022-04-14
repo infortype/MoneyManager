@@ -19,6 +19,9 @@ public:
     explicit Sheet(QWidget *parent = nullptr, const QString& sheetName = nullptr);
     ~Sheet();
 
+private slots:
+    void on_bAdd_clicked();
+
 private:
     Ui::Sheet *ui;
     QString sheetNameTitle {};
