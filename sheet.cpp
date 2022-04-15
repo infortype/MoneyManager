@@ -18,7 +18,9 @@ Sheet::Sheet(QWidget *parent, const QString& sheetName) :
 
     myTable2 = std::make_unique<Table>("Accounts");
      if(!ConfigureTable2()) { QMessageBox::critical(this, "Error", "Table error"); return; };
+
     ShowAccounts();
+    ShowResume();
 }
 
 Sheet::~Sheet()
@@ -48,6 +50,49 @@ bool Sheet::ConfigureTable2() const noexcept
 void Sheet::ShowAccounts() const noexcept
 {
 
+    ui->account->addItems(GetDataAcounts());
+
+    return;
+
+}
+
+void Sheet::ShowResume() const noexcept
+{
+    ui->resumeList->clear();
+
+    const short rowAccount { 2 };
+    const short rowAmount { 1 };
+
+    QVector<double>amounts{};
+    const QStringList dataAccounts { GetDataAcounts() };
+    amounts.resize(dataAccounts.size());
+    const auto data = myTable1->GetAllElements();
+
+     for(int i = 0; i<= data.size() - 1; i++){
+         for(int j = 0; j <= dataAccounts.size() - 1; j++){
+             const QStringList currentData = data.at(i);
+             const QString currentAccount = currentData.at(rowAccount);
+             const QString currentAmount = currentData.at(rowAmount);
+              if(currentAccount == dataAccounts.at(j)) amounts[j] += currentAmount.toDouble();
+         }
+
+     }//Esto va a petar
+
+     for(int i = 0; i <= dataAccounts.size() - 1; i++){
+         const QString msg { QString("%1: %2 Euros").arg(dataAccounts.at(i),
+                                                        QString::number(amounts.at(i))) };
+         ui->resumeList->addItem(msg);
+     }
+
+     qDebug() << amounts;
+
+    return;
+
+}
+
+const QStringList Sheet::GetDataAcounts() const noexcept
+{
+
     QStringList items {};
     auto data = myTable2->GetAllElements();
 
@@ -56,9 +101,7 @@ void Sheet::ShowAccounts() const noexcept
         items << item;
     }
 
-    ui->account->addItems(items);
-
-    return;
+   return items;
 
 }
 
@@ -77,6 +120,7 @@ void Sheet::on_bAdd_clicked()
          ui->event->setFocus();
      }else{
          myTable1->Add({event,QString::number(amount),account, paid});
+         ShowResume();
      }
 
     return;

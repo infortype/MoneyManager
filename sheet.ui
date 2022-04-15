@@ -93,10 +93,24 @@
     <item row="1" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QListWidget" name="list"/>
+       <widget class="QListWidget" name="list">
+        <property name="font">
+         <font>
+          <family>Cascadia Code</family>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+       </widget>
       </item>
       <item>
-       <widget class="QListWidget" name="resumeList"/>
+       <widget class="QListWidget" name="resumeList">
+        <property name="font">
+         <font>
+          <family>Cascadia Code</family>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>

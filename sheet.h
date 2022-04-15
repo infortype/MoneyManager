@@ -31,6 +31,8 @@ private:
     [[nodiscard]] bool ConfigureTable1() const noexcept;
     [[nodiscard]] bool ConfigureTable2() const noexcept;
     void ShowAccounts() const noexcept;
+    void ShowResume() const noexcept;
+    const QStringList GetDataAcounts() const noexcept;
 
 };
 
