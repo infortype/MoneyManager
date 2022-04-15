@@ -151,7 +151,27 @@ void Sheet::on_list_itemClicked(QListWidgetItem *item)
 
     const QString msg = QString("Evento: %1\nCantidad: %2€\nCuenta: %3\nEstado: %4")
             .arg(data.at(0), data.at(1), data.at(2), paid);
-    CreateMessage(item->text(), msg);
+
+    const int returnedValue { CreateMessage(item->text(), msg) };
+
+    switch (returnedValue) {
+    case 0: break;
+    case 1:
+    {
+        const QString title { "Are you sure?" };
+        const QString info { "If you erase the item, you will lose all the data." };
+        int msg = QMessageBox::question(this,title,info,QMessageBox::No | QMessageBox::Yes, QMessageBox::No );
+         if(msg == QMessageBox::Yes){
+            EraseItem(item->text());
+            ShowResume();
+            ShowData();
+         }
+        break;
+    }
+    case 2: //modificar
+        break;
+
+    }
 
     return;
 
@@ -166,15 +186,26 @@ int Sheet::CreateMessage(const QString &title, const QString &myMsg) const noexc
 
     [[maybe_unused]] auto exitButton= msg.addButton("Return", QMessageBox::ActionRole);
     [[maybe_unused]] auto delButton = msg.addButton("Erase", QMessageBox::ActionRole);
-                     auto seeButton = msg.addButton("Change", QMessageBox::ActionRole);
+                     auto ChangeButton = msg.addButton("Change", QMessageBox::ActionRole);
 
-    msg.setDefaultButton(seeButton);
+    msg.setDefaultButton(ChangeButton);
     msg.setText(title);
     msg.setInformativeText(myMsg);
     msg.setIconPixmap(myPix);
     msg.setStyleSheet("QLabel{min-width: 80;}");
 
     return msg.exec();
+
+}
+
+void Sheet::EraseItem(const QString &item) const noexcept
+{
+    const QString msg = QString("Item '%1' has been erased").arg(item);
+
+     if(!myTable1->Delete(0,item)) QMessageBox::critical(NULL, "Error", "Item has not erased");
+     else QMessageBox::information(NULL, "Item erased", msg);
+
+    return;
 
 }
 
