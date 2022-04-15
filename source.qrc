@@ -4,5 +4,6 @@
         <file>assets/add.png</file>
         <file>assets/papers.png</file>
         <file>assets/sheet.png</file>
+        <file>assets/info.png</file>
     </qresource>
 </RCC>

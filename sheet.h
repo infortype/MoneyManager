@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <memory>
+#include <QListWidgetItem>
 
 class Table;
 
@@ -22,6 +23,8 @@ public:
 private slots:
     void on_bAdd_clicked();
 
+    void on_list_itemClicked(QListWidgetItem *item);
+
 private:
     Ui::Sheet *ui;
     QString sheetNameTitle {};
@@ -32,7 +35,9 @@ private:
     [[nodiscard]] bool ConfigureTable2() const noexcept;
     void ShowAccounts() const noexcept;
     void ShowResume() const noexcept;
+    void ShowData() const noexcept;
     const QStringList GetDataAcounts() const noexcept;
+    int CreateMessage(const QString &title, const QString &myMsg) const noexcept;
 
 };
 

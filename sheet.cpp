@@ -21,6 +21,7 @@ Sheet::Sheet(QWidget *parent, const QString& sheetName) :
 
     ShowAccounts();
     ShowResume();
+    ShowData();
 }
 
 Sheet::~Sheet()
@@ -69,6 +70,7 @@ void Sheet::ShowResume() const noexcept
     const auto data = myTable1->GetAllElements();
 
      for(int i = 0; i<= data.size() - 1; i++){
+
          for(int j = 0; j <= dataAccounts.size() - 1; j++){
              const QStringList currentData = data.at(i);
              const QString currentAccount = currentData.at(rowAccount);
@@ -84,7 +86,18 @@ void Sheet::ShowResume() const noexcept
          ui->resumeList->addItem(msg);
      }
 
-     qDebug() << amounts;
+    return;
+
+}
+
+void Sheet::ShowData() const noexcept
+{
+    ui->list->clear();
+    const auto data = myTable1->GetAllElements();
+
+    foreach(QStringList p, data){
+        ui->list->addItem(p.at(0));
+    }
 
     return;
 
@@ -94,7 +107,7 @@ const QStringList Sheet::GetDataAcounts() const noexcept
 {
 
     QStringList items {};
-    auto data = myTable2->GetAllElements();
+    const auto data = myTable2->GetAllElements();
 
     foreach(QStringList p, data){
         QString item = p.at(0);
@@ -124,6 +137,44 @@ void Sheet::on_bAdd_clicked()
      }
 
     return;
+
+}
+
+
+void Sheet::on_list_itemClicked(QListWidgetItem *item)
+{
+    const QStringList data = (myTable1->GetElement(0, item->text())).at(0);
+
+    QString paid {};
+     if(data.at(3) == "True") paid = "Pagado";
+     else paid = "No pagado";
+
+    const QString msg = QString("Evento: %1\nCantidad: %2€\nCuenta: %3\nEstado: %4")
+            .arg(data.at(0), data.at(1), data.at(2), paid);
+    CreateMessage(item->text(), msg);
+
+    return;
+
+}
+
+int Sheet::CreateMessage(const QString &title, const QString &myMsg) const noexcept
+{
+    QPixmap myPix(":/assets/info.png");
+    myPix = myPix.scaled(50,50);
+
+    QMessageBox msg;
+
+    [[maybe_unused]] auto exitButton= msg.addButton("Return", QMessageBox::ActionRole);
+    [[maybe_unused]] auto delButton = msg.addButton("Erase", QMessageBox::ActionRole);
+                     auto seeButton = msg.addButton("Change", QMessageBox::ActionRole);
+
+    msg.setDefaultButton(seeButton);
+    msg.setText(title);
+    msg.setInformativeText(myMsg);
+    msg.setIconPixmap(myPix);
+    msg.setStyleSheet("QLabel{min-width: 80;}");
+
+    return msg.exec();
 
 }
 
