@@ -78,7 +78,7 @@ void Sheet::ShowResume() const noexcept
               if(currentAccount == dataAccounts.at(j)) amounts[j] += currentAmount.toDouble();
          }
 
-     }//Esto va a petar
+     }//Please change it!
 
      for(int i = 0; i <= dataAccounts.size() - 1; i++){
          const QString msg { QString("%1: %2 Euros").arg(dataAccounts.at(i),
@@ -123,23 +123,29 @@ void Sheet::on_bAdd_clicked()
     const QString event { ui->event->text() };
     const QString account { ui->account->currentText() };
     const double amount { ui->amount->value() };
-    bool paidBool = ui->paid;
-    QString paid;
+    const bool paidBool = ui->paid->isTristate();
+
+    QString paid {};
      if(paidBool) paid = "True";
      else paid = "False";
+    qDebug() << paidBool << " " << paid;
 
      if(event.isEmpty() || amount == 0.0 ){
          QMessageBox::critical(this, "Error", "Event requires a text and the amount must be > 0.");
          ui->event->setFocus();
      }else{
+          //if(ui->bAdd->text() == "Cambiar"){
+          //    myTable1->Update({event,QString::number(amount),account, paid}, 0, );
+          //}
          myTable1->Add({event,QString::number(amount),account, paid});
          ShowResume();
+         ShowData();
+         CleanUi();
      }
 
     return;
 
 }
-
 
 void Sheet::on_list_itemClicked(QListWidgetItem *item)
 {
@@ -168,8 +174,15 @@ void Sheet::on_list_itemClicked(QListWidgetItem *item)
          }
         break;
     }
-    case 2: //modificar
-        break;
+    case 2:
+    {
+        //ui->bAdd->setText("Cambiar");
+        //ui->event->setText(data.at(0));
+        //ui->amount->setValue(data.at(1).toDouble());
+        //ui->account->setCurrentText(data.at(2));
+        // if(data.at(3) == "True") ui->paid->setCheckState(Qt::Checked);
+        // else ui->paid->setCheckState(Qt::Unchecked);
+    }
 
     }
 
@@ -206,6 +219,15 @@ void Sheet::EraseItem(const QString &item) const noexcept
      else QMessageBox::information(NULL, "Item erased", msg);
 
     return;
+
+}
+
+void Sheet::CleanUi() const noexcept
+{
+    ui->event->setText("");
+    ui->amount->setValue(0.0);
+    ui->account->setCurrentIndex(0);
+    ui->paid->setCheckState(Qt::Unchecked);
 
 }
 

@@ -39,6 +39,7 @@ private:
     const QStringList GetDataAcounts() const noexcept;
     int CreateMessage(const QString &title, const QString &myMsg) const noexcept;
     void EraseItem(const QString& item) const noexcept;
+    void CleanUi() const noexcept;
 
 };
 
